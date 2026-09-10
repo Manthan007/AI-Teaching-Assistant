@@ -1,0 +1,34 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+python-multipart
+
+# Langchain 
+langchain
+langchain-community
+langchain-core
+langchain-groq
+
+# VectorStore
+pinecone
+
+# Embeddings
+langchain-google-genai
+
+# PDF parsing
+PyPDF
+
+# Environment Variables
+python-dotenv
+
+# Typing & Utilities
+pydantic
+requests
+tqdm
+
+# Authentication
+pymongo[bson]
+bcrypt
+
+streamlit
+requests
