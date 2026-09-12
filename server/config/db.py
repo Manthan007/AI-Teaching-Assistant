@@ -12,3 +12,4 @@ client=MongoClient(MONGO_URI)
 db = client[DB_NAME]
 
 users_collection = db["users"]
+chunk_collection = db["text"]
