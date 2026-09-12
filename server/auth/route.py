@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.security import HTTPBasic
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from .model import *
 from config.db import users_collection
 from .hash_utils import *
@@ -7,6 +7,18 @@ from .hash_utils import *
 
 router = APIRouter()
 security=HTTPBasic()
+
+
+def authenticate(credentials: HTTPBasicCredentials=Depends(security)):
+    """Authenticate a user using HTTP Basic Auth"""
+    user_record = users_collection.find_one({"username": credentials.username})
+    if not user_record or not verify_password(credentials.password, user_record["password"]):
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    return {
+        "username": user_record["username"],
+        "fullname": user_record["fullname"],
+        "email": user_record["email"]
+    }
 
 
 @router.post("/signup/student")
@@ -48,4 +60,9 @@ def signup_teacher(req: TeacherUser):
     })
 
     return {"message": "Teacher user created successfully"}
- 
+
+
+@router.get("/login")
+def login(user=Depends(authenticate)):
+    """Handles user login"""
+    return {"message": f"Welcome, {user}!"}
