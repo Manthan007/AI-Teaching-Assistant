@@ -11,5 +11,9 @@ DB_NAME = os.getenv("DB_NAME", "test_db")
 client=MongoClient(MONGO_URI)
 db = client[DB_NAME]
 
+# user collection
 users_collection = db["users"]
+# document collection
 chunk_collection = db["text"]
+# chat collection
+chat_history_collection = db["chat_history"]
